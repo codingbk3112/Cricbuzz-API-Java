@@ -40,4 +40,8 @@ Match Class has the following attributes:
 
 Inside Match Class, you can find other things like Venue details, Team details, team composition, etc. You can make use of all the details available. You can also modify the code as per your needs to analyse past data or such stuff.
 
-Please start this repo so that you can get back here :)
+Please star this repo so that you can get back here :)
+
+You can now get the latest commentary of a Match by calling `getCommentary` function of the Match Class. It makes a network call so donot call it too many times or you would be blocked :P
+
+You can run [Demo.java](https://github.com/yashrs/Cricbuzz-API-Java/blob/master/src/Demo.java) file to understand exactly how to use this Project and also modify it for your own needs. Thanks!
