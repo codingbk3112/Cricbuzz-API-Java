@@ -162,6 +162,9 @@ public class Match
 			return "Error";
 		}
 	}
+	public Commentary getCommentary(){
+		return CricBuzzParser.RetrieveCommentary(this);
+	}
 
 	public HashMap<String, String> getTeamIDData() {
 		return TeamIDData;

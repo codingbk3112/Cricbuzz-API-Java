@@ -30,10 +30,14 @@ public class CricBuzzParser
 	}
 	public void RetrieveURL()
 	{
-		try 
+		resp = getContentsOfURL(this.url);
+	}
+	private static String getContentsOfURL(String u)
+	{
+		try
 		{
-			URL url = new URL(this.url);
-			
+			URL url = new URL(u);
+
 			URLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 			StringBuilder responseString  = new StringBuilder();
@@ -43,15 +47,36 @@ public class CricBuzzParser
 				responseString.append(line);
 			}
 			String responseJsonString = responseString.toString();
-			
-			resp = responseJsonString;
+
+			return responseJsonString;
 		}
 		catch(Exception except)
 		{
 			except.printStackTrace();
+			return null;
 		}
 	}
-	
+	private static String getCommentaryURL(String mid)
+	{
+		String urlCommentary = "http://mapps.cricbuzz.com/cbzios/match/" + mid + "/commentary";
+		return urlCommentary;
+	}
+	public static Commentary RetrieveCommentary(Match m)
+	{
+		String comm = getContentsOfURL(getCommentaryURL(m.getMatchID()));
+		JSONObject jo;
+
+		try {
+			Commentary c = new Commentary(new JSONObject(comm));
+			return c;
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+
+	}
 	public void putResult(String result)
 	{
 		this.resp = result;
@@ -72,7 +97,7 @@ public class CricBuzzParser
 				Match m = new Match(individualMatch);
 				Matches.add(m);
 				String scorecard = m.getScoreCard();
-				System.out.println(scorecard);
+				//System.out.println(scorecard);
 			}
 		}
 		catch (JSONException e) 
